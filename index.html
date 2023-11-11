@@ -297,4 +297,74 @@ function copy(id) {
 }</script>
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <h1>Random User Data Generator</h1>
+</head>
+
+<body>
+<br>
+<div class="bgblur">
+<div class="avatar" style="display: block;">
+  <center><a > Avatar:</a><br>
+  <img id="image" src=""/></center>
+</div>
+<div class="apitext">
+
+<p id="fname">First Name</p>
+<p id="lname">Last Name</p>
+<p id="uname">Username</p>
+<p id="mail">E-mail</p> 
+  <p id="pno">Phone Number</p>
+  <p id="dob">Date of Birth</p> 
+  <p id="country">Country</p>
+  <p id="strn">Street Name</p>
+  <p id="stra">Street Address</p>
+  <p id="zip">ZIP Code</p><center>
+<button onclick="update_user()" type="button">Get Data</button>
+
+</center>
+</div>
+</div>
+
+<br>
+<script type="text/javascript">
+
+  function update_user(){
+    var user_number = 1;
+
+
+httpRequest = new XMLHttpRequest();
+
+httpRequest.open("GET","https://random-data-api.com/api/v2/users?size="+user_number+ "&response_type=json");
+httpRequest.send();
+
+
+httpRequest.onreadystatechange = function(){
+if (this.readyState == 4 && this.status == 200)
+{
+  user_data = JSON.parse(this.responseText);
+    document.getElementById("image").src = user_data.avatar;
+    document.getElementById("fname").innerHTML = user_data.first_name;
+    document.getElementById("lname").innerHTML = user_data.last_name;
+    document.getElementById("uname").innerHTML = user_data.username;
+    document.getElementById("mail").innerHTML = user_data.email;
+    document.getElementById("pno").innerHTML = user_data.phone_number;
+    document.getElementById("dob").innerHTML = user_data.date_of_birth;
+    document.getElementById("country").innerHTML = user_data.address.country;
+    document.getElementById("strn").innerHTML = user_data.address.street_name;
+    document.getElementById("stra").innerHTML = user_data.address.street_address;
+    document.getElementById("zip").innerHTML = user_data.address.zip_code;
+
+}
+}
+}
+  </script>
+</body>
+
+</html>
 
